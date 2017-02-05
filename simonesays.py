@@ -12,11 +12,11 @@ voice = 'Alva'
 voice_command = 'say -v {} '.format(voice)
 
 print ("Hej, jag heter Simone!")
-system(voice_command + 'Hej, jag heter Simone!')
+#system(voice_command + 'Hej, jag heter Simone!')
 
-# globals
-numberOfPeopleInRoom = 0
+# +++ globals
 currentRoomEvents = []
+speechCandidates = []
 
 # read the file containing states and what to say
 try:
@@ -26,6 +26,8 @@ except OSError:
 	print("File not found")
 content = inFile.readlines()
 inFile.close()
+# --- globals
+
 
 # room events
 from enum import Enum, auto
@@ -52,7 +54,6 @@ def addState(key):
 	elif key == keyboard.Key.cmd:
 		addRoomEvent(currentRoomEvents, RoomEvent.PERSON_LEAVES_LINE)
 
-
 def removeState(key):
 	global currentRoomEvents
 
@@ -65,26 +66,26 @@ def removeState(key):
 	elif key == keyboard.Key.cmd:
 		removeRoomEvent(currentRoomEvents, RoomEvent.PERSON_LEAVES_LINE)
 
-
 def addRoomEvent(eventList, event):
 	eventList.append(event)
 	print("Added event %s" % event.name)
+	speechCandidates = []
 #	if(len(eventList)>0):
 #		print("Added event %s" % eventList[len(eventList)-1])
 
 def removeRoomEvent(eventList, event):
+	global speechCandidates
+
 	if event in eventList:
 		eventList.remove(event)
 		print("Removed event %s" % event.name)
+	# clear speech candidates
+# update this later to only clear the speech candidates from this specific event
+	speechCandidates = []
 
 def on_press(key):
 	addState(key)
-#	try:
-#		print('alphanumeric key {0} pressed'.format(key.char))
-#	except AttributeError:
-#		print('special keuy {0} pressed'.format(key))
 		
-
 def on_release(key):
 	if key == keyboard.Key.esc:
 		#stop listener
@@ -96,6 +97,8 @@ def keyListener( tname ):
 		listener.join()
 
 def getSpeechCandidates():
+	global content
+
 	if len(currentRoomEvents) == 0: 
 		return
 
@@ -136,31 +139,35 @@ def getSpeechCandidates():
 	
 	return(speechCandidates)
 
-# Functions End
-
 def talk():
-	global content
-	global currentRoomEvents
+	global speechCandidates
+
 	if len(currentRoomEvents) == 0:
 		return
 	# a list of possible scentences to say 
-	speechCandidates = getSpeechCandidates()
+	if(len(speechCandidates)==0):
+		# get new candidates
+		speechCandidates = getSpeechCandidates()
+
 	# print(speechCandidates)
 	if(len(speechCandidates)>0):
-		sentence_to_say = random.choice(speechCandidates)
+		# pick one of the candidates
+		sentence = random.choice(speechCandidates)
+		speechCandidates.remove(sentence)
+		sentence_to_say = format(sentence)
 		sentence_to_say = sentence_to_say.strip()
 		print(sentence_to_say)
-		#system_say_command = format('say -v Alva {}'.format(sentence_to_say))
 		system(voice_command + sentence_to_say)
 
-
 def main():
+
+
 	lastFrameTime = 0
 	while True:
 		currentTime = time.time()
 		deltaTime = currentTime - lastFrameTime
 
-		if(deltaTime > 3):
+		if(deltaTime > 3): # wait 3 seconds
 			lastFrameTime = currentTime
 			talk()
 
