@@ -7,17 +7,16 @@ import _thread
 from pynput import keyboard
 from os import system
 
+#voice = 'Oskar'
 voice = 'Alva'
 voice_command = 'say -v {} '.format(voice)
 
 print ("Hej, jag heter Simone!")
-#system('{} "Hej jag heter Simone!"'.format(voice_command))
 system(voice_command + 'Hej, jag heter Simone!')
 
 # globals
 numberOfPeopleInRoom = 0
 currentRoomEvents = []
-
 
 # read the file containing states and what to say
 try:
@@ -40,9 +39,7 @@ class RoomEvent(Enum):
 	MANY_PEOPLE_IN_ROOM = "MANY_PEOPLE_IN_ROOM"
 	PERSON_LEAVES_LINE = "PERSON_LEAVES_LINE"
 
-
 # functions Start
-
 def addState(key):
 	global currentRoomEvents
 	
@@ -51,7 +48,7 @@ def addState(key):
 	elif key == keyboard.Key.shift:
 		addRoomEvent(currentRoomEvents, RoomEvent.PERSON_ENTERS_ROOM)
 	elif key == keyboard.Key.ctrl:
-		addRoomEvent(currentRoomEvents, RoomEvent.PERSON_GETS_IN_LINE)
+		addRoomEvent(currentRoomEvents, RoomEvent.MANY_PEOPLE_IN_ROOM)
 	elif key == keyboard.Key.cmd:
 		addRoomEvent(currentRoomEvents, RoomEvent.PERSON_LEAVES_LINE)
 
@@ -64,7 +61,7 @@ def removeState(key):
 	elif key == keyboard.Key.shift:
 		removeRoomEvent(currentRoomEvents, RoomEvent.PERSON_ENTERS_ROOM)
 	elif key == keyboard.Key.ctrl:
-		removeRoomEvent(currentRoomEvents, RoomEvent.PERSON_GETS_IN_LINE)
+		removeRoomEvent(currentRoomEvents, RoomEvent.MANY_PEOPLE_IN_ROOM)
 	elif key == keyboard.Key.cmd:
 		removeRoomEvent(currentRoomEvents, RoomEvent.PERSON_LEAVES_LINE)
 
@@ -119,6 +116,7 @@ def getSpeechCandidates():
 		plus_line = line.find('+')
 		if plus_line > -1:
 			state_match = False
+			state_counter = 0
 			states = line.split(':')
 
 			# check if the STATES match current room state.
@@ -126,7 +124,10 @@ def getSpeechCandidates():
 				state = state.translate({ord(c): None for c in '+-'}) # strip any + och -
 				state = state.strip() # strip any white space
 				if state in room_events:
-					state_match = True
+					state_counter += 1
+
+			if state_counter == len(states):
+				state_match = True
 		
 		# if we have a state match, add the following lines in script until next state
 		else:
