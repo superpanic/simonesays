@@ -1,5 +1,5 @@
 +ALL_IN_LINE:MANY_PEOPLE_IN_ROOM
-Vad duktiga ni är allihop
+Vad duktiga ni är allihop!
 +ALL_IN_LINE
 Vad duktiga ni är!
 Det här känns riktigt bra!
@@ -9,7 +9,7 @@ Jag älskar er!
 Hej och välkommen!
 Hej! Kom fram här och ställ dig på led!
 +PERSON_LEAVES_ROOM
-Stop där. Gå inte ut ur vårt fina rum.
+Stop där! Gå inte ut ur vårt fina rum.
 +PERSON_GETS_IN_LINE
 Bra! Nu ser det bättre ut.
 +PERSON_LEAVES_LINE

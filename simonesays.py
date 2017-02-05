@@ -7,8 +7,12 @@ import _thread
 from pynput import keyboard
 from os import system
 
-print ("Hej jag heter Simone!")
-system('say -v Alva "Hej jag heter Simone!"')
+voice = 'Alva'
+voice_command = 'say -v {} '.format(voice)
+
+print ("Hej, jag heter Simone!")
+#system('{} "Hej jag heter Simone!"'.format(voice_command))
+system(voice_command + 'Hej, jag heter Simone!')
 
 # globals
 numberOfPeopleInRoom = 0
@@ -23,7 +27,6 @@ except OSError:
 	print("File not found")
 content = inFile.readlines()
 inFile.close()
-
 
 # room events
 from enum import Enum, auto
@@ -146,14 +149,12 @@ def talk():
 		sentence_to_say = random.choice(speechCandidates)
 		sentence_to_say = sentence_to_say.strip()
 		print(sentence_to_say)
-		system_say_command = format('say -v Alva {}'.format(sentence_to_say))
-		system(system_say_command)
+		#system_say_command = format('say -v Alva {}'.format(sentence_to_say))
+		system(voice_command + sentence_to_say)
 
 
 def main():
 	lastFrameTime = 0
-	print("main")
-
 	while True:
 		currentTime = time.time()
 		deltaTime = currentTime - lastFrameTime
