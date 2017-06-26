@@ -1,5 +1,6 @@
 +ALL_IN_LINE:MANY_PEOPLE_IN_ROOM
 Vad duktiga ni är allihop!
+Så många som står på led! Fantastiskt!
 +ALL_IN_LINE
 Vad duktiga ni är!
 Det här känns riktigt bra!
@@ -8,11 +9,15 @@ Jag älskar er!
 +PERSON_ENTERS_ROOM
 Hej och välkommen!
 Hej! Kom fram här och ställ dig på led!
+Välkommen till vårt rum! Här står vi på led.
 +PERSON_LEAVES_ROOM
 Stop där! Gå inte ut ur vårt fina rum.
 +PERSON_GETS_IN_LINE
 Bra! Nu ser det bättre ut.
+Så där ja! Ni kan ju!
 +PERSON_LEAVES_LINE
-Hallå där! Gå genast tillbaka in i ledet!
+Hallå där! Gå genast tillbaka, in i ledet!
+Stopp! Gå tillbaka!
+Räta upp ledet, tack!
 +ALL_IN_LINE_TIMOUT
 Hmm. Det är något som inte känns helt rätt.

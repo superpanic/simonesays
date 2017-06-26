@@ -7,8 +7,8 @@ import _thread
 from pynput import keyboard
 from os import system
 
-#voice = 'Oskar'
-voice = 'Alva'
+voice = 'Oskar'
+#voice = 'Alva'
 voice_command = 'say -v {} '.format(voice)
 
 print ("Hej, jag heter Simone!")
