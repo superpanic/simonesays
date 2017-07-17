@@ -11,7 +11,7 @@ Hej och välkommen!
 Hej! Kom fram här och ställ dig på led!
 Välkommen till vårt rum! Här står vi på led.
 +PERSON_LEAVES_ROOM
-Stop där! Gå inte ut ur vårt fina rum.
+Stopp där! Gå inte ut ur vårt fina rum.
 +PERSON_GETS_IN_LINE
 Bra! Nu ser det bättre ut.
 Så där ja! Ni kan ju!
